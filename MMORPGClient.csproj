@@ -75,7 +75,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\FingerEvent.cs" />
+    <ProjectReference Include="MMORPGClient.Plugins.csproj">
+      <Project>{EFA97A4A-E3A9-C670-9A5D-CB964295D28D}</Project>
+      <Name>MMORPGClient.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\FingerGestures\Samples\Scripts\AdvancedPinchRotationSample.cs" />
     <Compile Include="Assets\FingerGestures\Samples\Scripts\FingerEventsSamplePart1.cs" />
     <Compile Include="Assets\FingerGestures\Samples\Scripts\FingerEventsSamplePart2.cs" />
@@ -108,6 +113,7 @@
     <Compile Include="Assets\FingerGestures\Toolbox\TBTap.cs" />
     <Compile Include="Assets\FingerGestures\Utils\GestureStateTracker.cs" />
     <Compile Include="Assets\FingerGestures\Utils\MoveToFinger.cs" />
+    <Compile Include="Assets\Script\Common\FingerEvent.cs" />
     <Compile Include="Assets\Script\Common\MeshRender\MeshLightmapSetting.cs" />
     <Compile Include="Assets\Script\Common\MeshRender\SerializedLightmapSetting.cs" />
     <Compile Include="Assets\Script\MyScript\BoxCtrl.cs" />

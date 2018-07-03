@@ -117,6 +117,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="MMORPGClient.Plugins.csproj">
+      <Project>{EFA97A4A-E3A9-C670-9A5D-CB964295D28D}</Project>
+      <Name>MMORPGClient.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="MMORPGClient.csproj">
       <Project>{57FC073E-A3BC-F1D4-CC5F-D60ADA3705C9}</Project>
       <Name>MMORPGClient</Name>
