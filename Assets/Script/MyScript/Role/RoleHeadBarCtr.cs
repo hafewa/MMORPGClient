@@ -42,7 +42,7 @@ public class RoleHeadBarCtr : MonoBehaviour
 
     private void Update()
     {
-        if (Camera.main == null || UICamera.mainCamera == null) return;
+        if (Camera.main == null || UICamera.mainCamera == null || m_TargetPos == null) return;
 
         //首先将头顶UI条的位置从世界坐标转换到视口坐标
         Vector3 viewPos = Camera.main.WorldToScreenPoint(m_TargetPos.position);
@@ -56,8 +56,9 @@ public class RoleHeadBarCtr : MonoBehaviour
     /// 飘血显示
     /// </summary>
     /// <param name="value"></param>
-    public void SetHUDText(int value)
+    public void SetHpAndHUD(int value,float hpRate)
     {
         m_HudText.Add(string.Format("-{0}", value.ToString()), Color.red, 0.2f);
+        pbHp.GetComponent<UISlider>().value = hpRate;
     }
 }

@@ -15,7 +15,7 @@ public class RoleFSMMgr
     /// <summary>
     /// 角色当前状态枚举
     /// </summary>
-    public RoleStateType RoleStateType { get; private set; }
+    public RoleStateType RoleStateType { get; set; }
 
     /// <summary>
     /// 当前角色当前状态机

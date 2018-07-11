@@ -23,6 +23,12 @@ public class RoleStateAttack : RoleStateAbstract
     {
         //切换攻击动画
         CurrAinmator.SetInteger(ToAnimatorCondition.ToPhyAttack.ToString(), 1);
+
+        //攻击敌人的时候应该面向敌人
+        if(RoleFSMMgr.RoleCtrl.LockEnemy != null)
+        {
+            RoleFSMMgr.RoleCtrl.transform.LookAt(new Vector3(RoleFSMMgr.RoleCtrl.LockEnemy.transform.position.x, RoleFSMMgr.RoleCtrl.transform.position.y, RoleFSMMgr.RoleCtrl.LockEnemy.transform.position.z));
+        }
     }
 
     /// <summary>
@@ -37,11 +43,14 @@ public class RoleStateAttack : RoleStateAbstract
         {
             CurrAinmator.SetInteger(ToAnimatorCondition.CurState.ToString(), (int)RoleStateType.Attack);
 
-            //如果完成了攻击就切换回待机状态
-            if(CurrAnimatorStateInfo.normalizedTime > 1)
+            if (CurrAnimatorStateInfo.normalizedTime > 1.0f)
             {
-                RoleFSMMgr.RoleCtrl.ToIdle();
+                 RoleFSMMgr.RoleCtrl.ToIdle();
             }
+        }
+        else//攻击完成后需要将CurState字段重置
+        {
+            CurrAinmator.SetInteger(ToAnimatorCondition.CurState.ToString(), 0);
         }
     }
 

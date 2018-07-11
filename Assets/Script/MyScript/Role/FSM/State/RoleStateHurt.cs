@@ -43,6 +43,10 @@ public class RoleStateHurt : RoleStateAbstract
                 RoleFSMMgr.RoleCtrl.ToIdle();
             }
         }
+        else
+        {
+            CurrAinmator.SetInteger(ToAnimatorCondition.CurState.ToString(), 0);
+        }
     }
 
     /// <summary>

@@ -94,6 +94,16 @@ public class RoleCtrl : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public RoleCtrl LockEnemy;
+
+    /// <summary>
+    /// 伤害监听事件
+    /// </summary>
+    public Action OnHurt;
+
+    /// <summary>
+    /// 死亡事件
+    /// </summary>
+    public System.Action<RoleCtrl> OnDie;
     #endregion
 
     /// <summary>
@@ -210,9 +220,13 @@ public class RoleCtrl : MonoBehaviour
         //这里仅仅是测试(伤害计算公式)
         int hurt = (int)(attackValue * UnityEngine.Random.Range(0.7f, 1f));
 
-        m_HeadBarCtrl.SetHUDText(hurt);
-
         CurrRoleInfo.CurrHp -= hurt;
+
+        m_HeadBarCtrl.SetHpAndHUD(hurt,(float)CurrRoleInfo.CurrHp / CurrRoleInfo.MaxHp);
+
+        //监听伤害事件
+        if (OnHurt != null)
+            OnHurt();
 
         if (CurrRoleInfo.CurrHp <= 0)
         {
@@ -317,7 +331,8 @@ public class RoleCtrl : MonoBehaviour
     #region 销毁
     private void OnDestroy()
     {
-
+        Destroy(m_HeadBar);
+        m_HeadBar = null;
     }
     #endregion
 }

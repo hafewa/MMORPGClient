@@ -31,6 +31,9 @@ public class RoleMonsterAI : IRoleAI
     /// </summary>
     public void DoAI()
     {
+        //如果敌人死了就不在执行AI了
+        if (roleCtrl.RoleFSMMgr.RoleStateType == RoleStateType.Die) return;
+
         if(roleCtrl != null)
         {
             //如果敌人没有锁定主角就一直巡逻
@@ -58,6 +61,12 @@ public class RoleMonsterAI : IRoleAI
             }
             else//已经锁定了主角
             {
+                if (roleCtrl.LockEnemy.CurrRoleInfo.CurrHp <= 0)
+                {
+                    roleCtrl.LockEnemy = null;
+                    return;
+                }
+
                 //如果敌人和主角的距离大于敌人的可视范围就解除对主角的锁定
                 if (Vector3.Distance(roleCtrl.transform.position, GlobalInit.Instance.MainRoleCtrl.transform.position) > roleCtrl.ViewRange)
                 {

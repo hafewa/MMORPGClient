@@ -15,7 +15,7 @@ public class MainCitySceneStart : MonoBehaviour
         if (FingerEvent.Instance != null)
         {
             FingerEvent.Instance.OnFingerDragEvent += OnFingerEvent;
-            FingerEvent.Instance.OnPlayerClickGround += OnPlayerClickGround;
+            FingerEvent.Instance.OnPlayerClick += OnPlayerClick;
             FingerEvent.Instance.OnZoom += OnZoom;
         }
     }
@@ -27,6 +27,9 @@ public class MainCitySceneStart : MonoBehaviour
         GlobalInit.Instance.MainRoleCtrl = mainRole.GetComponent<RoleCtrl>();
         //主角控制器初始化
         GlobalInit.Instance.MainRoleCtrl.Init(RoleType.MainPlayer, new RoleInfoBase() { NickName = GlobalInit.Instance.MainRoleNickName , CurrHp = 10000,MaxHp = 10000}, new RoleMainPlayerCityAI(GlobalInit.Instance.MainRoleCtrl));
+
+        //初始化主角的UI面板
+        UIPlayerInfo.Instance.SetUIPlayerInfo();
     }
 
     /// <summary>
@@ -49,7 +52,7 @@ public class MainCitySceneStart : MonoBehaviour
     /// <summary>
     /// 点击地面主角移动
     /// </summary>
-    private void OnPlayerClickGround()
+    private void OnPlayerClick()
     {
         if (UICamera.currentCamera != null)
         {
@@ -63,16 +66,33 @@ public class MainCitySceneStart : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit hit;
+        RaycastHit[] hitArray = Physics.RaycastAll(ray, Mathf.Infinity, 1 << LayerMask.NameToLayer("Role"));
 
-        //获取摄像机的射线碰撞地面点
-        if (Physics.Raycast(ray, out hit))
+        //如果点击到了敌人
+        if (hitArray.Length > 0)
         {
-            if (hit.collider.gameObject.name.Equals("Ground", System.StringComparison.CurrentCultureIgnoreCase))
+            RoleCtrl roleCtrl = hitArray[0].collider.gameObject.GetComponent<RoleCtrl>();
+
+            if (roleCtrl.CurrRoleType == RoleType.Monster)
             {
-                if(GlobalInit.Instance.MainRoleCtrl != null)
+                //锁定敌人
+                GlobalInit.Instance.MainRoleCtrl.LockEnemy = roleCtrl;
+            }
+        }
+        else
+        {
+            RaycastHit hit;
+
+            //获取摄像机的射线碰撞地面点
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.name.Equals("Ground", System.StringComparison.CurrentCultureIgnoreCase))
                 {
-                    GlobalInit.Instance.MainRoleCtrl.MoveTo(hit.point);
+                    if (GlobalInit.Instance.MainRoleCtrl != null)
+                    {
+                        GlobalInit.Instance.MainRoleCtrl.LockEnemy = null;
+                        GlobalInit.Instance.MainRoleCtrl.MoveTo(hit.point);
+                    }
                 }
             }
         }

@@ -49,11 +49,13 @@ public class MonsterCreateMachine : MonoBehaviour
                 RoleInfoMonster roleInfo = new RoleInfoMonster();
                 roleInfo.NickName = "骑兵";
                 roleInfo.RoleServerId = DateTime.Now.Ticks;
-                roleInfo.MaxHp = roleInfo.CurrHp = 100;
+                roleInfo.MaxHp = roleInfo.CurrHp = 1000;
                 roleInfo.RoleId = 1;
 
                 RoleCtrl ctrl = moster.GetComponent<RoleCtrl>();
                 ctrl.BornPos = transform;
+
+                ctrl.OnDie = OnMonsterDie;
 
                 RoleMonsterAI ai = new RoleMonsterAI(ctrl);
 
@@ -61,4 +63,10 @@ public class MonsterCreateMachine : MonoBehaviour
             }
         }
 	}
+
+    private void OnMonsterDie(RoleCtrl ctrl)
+    {
+        m_CurrCount--;
+        Destroy(ctrl.gameObject);
+    }
 }

@@ -37,6 +37,10 @@ public class RoleStateIdle : RoleStateAbstract
         {
             CurrAinmator.SetInteger(ToAnimatorCondition.CurState.ToString(), (int)RoleStateType.Idle);
         }
+        else
+        {
+            CurrAinmator.SetInteger(ToAnimatorCondition.CurState.ToString(), 0);
+        }
     }
 
     /// <summary>

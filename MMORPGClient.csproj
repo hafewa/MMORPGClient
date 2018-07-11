@@ -303,6 +303,7 @@
     <Compile Include="Assets\Script\MyScript\UI\Ctrl\WindowUICtrl\WindowReigsterCtrl.cs" />
     <Compile Include="Assets\Script\MyScript\UI\Ctrl\WindowUICtrl\WindowRoleInfoCtrl.cs" />
     <Compile Include="Assets\Script\MyScript\UI\Other\RoleHeadBarRoot.cs" />
+    <Compile Include="Assets\Script\MyScript\UI\Other\UIPlayerInfo.cs" />
     <Compile Include="Assets\Script\MyScript\UI\SceneUIMgr.cs" />
     <Compile Include="Assets\Script\MyScript\UI\WindowUIMgr.cs" />
     <Compile Include="Assets\Script\MyScript\Util\GameObjectUtil.cs" />
