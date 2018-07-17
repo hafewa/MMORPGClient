@@ -17,6 +17,11 @@ public class GlobalInit : MonoBehaviour
     public const string MMO_PWD = "mmo_pwd";
 
     /// <summary>
+    /// Web服务器的地址
+    /// </summary>
+    public const string WebServerUrl = "http://127.0.0.1:8080/";
+
+    /// <summary>
     /// 角色昵称
     /// </summary>
     [HideInInspector]
